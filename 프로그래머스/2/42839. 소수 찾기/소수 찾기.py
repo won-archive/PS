@@ -1,37 +1,64 @@
-def solution(numbers):
-    numbers = list(numbers)
-    answer = set()
-    visited = [False] * len(numbers)
-    
-    def isPrime(n):
-        if n < 2:
-            return False
-        if n == 2:
-            return True
-        if n % 2 == 0:
-            return False
+import itertools
 
-        i = 3
-        while i * i <= n:
-            if n % i == 0:
-                return False
-            i += 2
-        return True
+def solution(numbers):
+    def is_prime(num):
+        if num < 2:
+            return 0
+        if num == 2:
+            return 1
+        if num % 2 == 0:
+            return 0
+        for i in range(3, int(num ** 0.5) + 1, 2):
+            if num % i == 0:
+                return 0
+        return 1
     
-    def dfs(num):
-        if num:
-            value = int(num)
-            if isPrime(value):
-                answer.add(value)
+    ans = 0
+    seen = set()
+    for r in range(1, len(numbers) + 1):
+        for x in itertools.permutations(list(numbers), r):
+            temp = int(''.join(x))
+            if temp not in seen:
+                seen.add(temp)
+                ans += is_prime(temp)
+    
+    return ans
+    
+
+# def solution(numbers):
+#     numbers = list(numbers)
+#     answer = set()
+#     visited = [False] * len(numbers)
+    
+#     def isPrime(n):
+#         if n < 2:
+#             return False
+#         if n == 2:
+#             return True
+#         if n % 2 == 0:
+#             return False
+
+#         i = 3
+#         while i * i <= n:
+#             if n % i == 0:
+#                 return False
+#             i += 2
+#         return True
+    
+#     def dfs(num):
+#         if num:
+#             value = int(num)
+#             if isPrime(value):
+#                 answer.add(value)
         
-        for i in range(len(numbers)):
-            if not visited[i]:
-                visited[i] = True
-                dfs(num + numbers[i])
-                visited[i] = False
+#         for i in range(len(numbers)):
+#             if not visited[i]:
+#                 visited[i] = True
+#                 dfs(num + numbers[i])
+#                 visited[i] = False
     
-    dfs('')
-    return len(answer)
+#     dfs('')
+#     return len(answer)
 
 # from itertools import permutations
 
