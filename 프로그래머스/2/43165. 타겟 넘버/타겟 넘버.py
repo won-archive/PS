@@ -1,33 +1,18 @@
 def solution(numbers, target):
-    answer = 0
-    def recur(idx, total):
-        nonlocal answer
-
-        if idx == len(numbers):
-            if total == target:
-                answer += 1
-            return
-            
-        recur(idx+1, total+numbers[idx])
-        recur(idx+1, total-numbers[idx])
+    n = len(numbers)
+    ans = 0
     
-    recur(0, 0)
-    return answer
+    def dfs(i, s):
+        nonlocal ans
+        
+        if i == n - 1:
+            if s == target:
+                ans += 1
+            return
+        
+        dfs(i + 1, s - numbers[i + 1])
+        dfs(i + 1, s + numbers[i + 1])
 
-
-# def solution(numbers, target):
-#     answer = 0
-
-#     def dfs(idx, total):
-#         nonlocal answer
-
-#         if idx == len(numbers):
-#             if total == target:
-#                 answer += 1
-#             return
-
-#         dfs(idx + 1, total + numbers[idx])
-#         dfs(idx + 1, total - numbers[idx])
-
-#     dfs(0, 0)
-#     return answer
+    dfs(-1, 0)
+    
+    return ans
