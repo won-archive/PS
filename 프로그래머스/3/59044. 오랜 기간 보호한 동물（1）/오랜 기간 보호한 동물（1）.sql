@@ -1,0 +1,10 @@
+-- 코드를 입력하세요
+# 입양을 못 간 동물
+# 가장 오래 보호소에 있었던 동물 3마리 이름, 보호 시작일
+# 보호 시작일 순
+SELECT I.NAME, I.DATETIME
+FROM ANIMAL_INS I
+LEFT JOIN ANIMAL_OUTS O ON O.ANIMAL_ID = I.ANIMAL_ID
+WHERE O.ANIMAL_ID IS NULL
+ORDER BY I.DATETIME
+LIMIT 3
