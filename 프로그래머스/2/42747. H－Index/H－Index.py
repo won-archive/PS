@@ -1,21 +1,9 @@
 def solution(citations):
-    temp = sorted(citations, reverse=True)
-
-    answer = 0
-    for i, t in enumerate(temp):
-        if t >= i + 1:
-            answer = i + 1
-        else:
-            break    
+    arr = sorted(citations, key=lambda x: -x)
     
-    return answer
-
-# 1
-# def solution(citations):
-#     citations.sort(reverse=True)
-
-#     for i, citation in enumerate(citations, start=1):
-#         if citation < i:
-#             return i - 1
-
-#     return len(citations)
+    ans = 0
+    for i, h in enumerate(arr):
+        if h >= i + 1:
+            ans = i + 1
+    
+    return ans
